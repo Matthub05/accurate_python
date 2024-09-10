@@ -6,7 +6,7 @@ and defines a User model using Peewee ORM.
 
 import os
 from dotenv import load_dotenv
-from peewee import *
+from peewee import Model, AutoField, CharField, MySQLDatabase
 
 # Load environment variables
 load_dotenv()
