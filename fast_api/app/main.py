@@ -8,7 +8,6 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from starlette.responses import RedirectResponse
 
-from database import database as connection
 from routes.user_route import user_route
 
 
@@ -34,14 +33,15 @@ async def lifespan(_app: FastAPI):
         application to manage the database connection lifecycle.
     """
     # Conectar a la base de datos si la conexión esta cerrada
-    if connection.is_closed():
-        connection.connect()
+    #    if connection.is_closed():
+    #        connection.connect()
     try:
         yield  # Aquí es donde se ejecutará la aplicación
     finally:
         # Cerrar
-        if not connection.is_closed():
-            connection.close()
+        #       if not connection.is_closed():
+        #           connection.close()
+        print("Connection closed")
 
 
 # app instance

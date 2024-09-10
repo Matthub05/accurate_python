@@ -18,7 +18,6 @@ Dependencies:
 
 from fastapi import APIRouter, Body
 
-from database import UserModel
 from models.user import User
 
 user_route = APIRouter()
@@ -35,7 +34,9 @@ def create_users(user: User = Body(...)):
     Returns:
         None
     """
-    UserModel.create(username=user.username, password=user.password, email=user.email)
+    # UserModel.create(username=user.username, password=user.password, email=user.email)
+    print(user)
+    return {"message": "User created successfully"}
 
 
 @user_route.get("/users")
@@ -49,8 +50,9 @@ def get_users():
     Returns:
         list: A list of dictionaries, each representing a user.
     """
-    user = UserModel.select().where(UserModel.id > 0).dicts()
-    return list(user)
+    # user = UserModel.select().where(UserModel.id > 0).dicts()
+    # return list(user)
+    return {"message": "Get all users"}
 
 
 @user_route.get("/users/{user_id}")
@@ -65,8 +67,13 @@ def get_user(user_id: int):
         UserModel: The user object if found.
         dict: An error message if the user is not found.
     """
+    print(user_id)
     try:
-        user = UserModel.get(UserModel.id == user_id)
-        return user
-    except UserModel.DoesNotExist:
-        return {"error": "User not found"}
+        # user = UserModel.get(UserModel.id == user_id)
+        # return user
+        return {"message": "Get user by ID"}
+    # except UserModel.DoesNotExist:
+    except FileNotFoundError as e:
+        # return {"error": "User not found"}
+        print(e)
+        return {"message": "User not found"}
